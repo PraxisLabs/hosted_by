@@ -1,0 +1,4 @@
+name = Hosted By
+description = Provides a "hosted by" block, managed by variables
+core = 7.x
+package = Hosting

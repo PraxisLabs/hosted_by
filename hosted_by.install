@@ -1,0 +1,7 @@
+<?php
+
+function hosted_by_uninstall() {
+  variable_del('hosted_by_name');
+  variable_del('hosted_by_link');
+  variable_del('hosted_by_custom_html');
+}

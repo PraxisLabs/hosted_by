@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Code for the Hosted By module.
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function hosted_by_block_info() {
+  $blocks = array();
+  $blocks['hosted-by'] = array(
+    'info' => t('Hosted By (hosting provider block)'),
+    'weight' => '10',
+    'cache' => DRUPAL_CACHE_GLOBAL,
+    'region' => 'footer',
+  );  
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function hosted_by_block_view() {
+  $block = array();
+  $block['subject'] = NULL;
+
+  $hosting_provider_name = variable_get('hosted_by_name', NULL);
+  $hosting_provider_link = variable_get('hosted_by_link', NULL);
+  $hosted_by_custom_html = variable_get('hosted_by_custom_html', NULL);
+
+  $t_array = array(
+    '!hosted_by_name' => $hosting_provider_name,
+    '!hosted_by_link' => $hosting_provider_link,
+    '!hosted_by_more' => $hosted_by_more,
+  );
+
+  $content = '<span class="hosted-by">';
+
+  if (!empty($hosted_by_custom_html)) {
+    $content .= t($hosted_by_custom_html, $t_array);
+  }
+  else {
+    if (empty($hosting_provider_name)) { // Default block needs this
+      return array();
+    }
+
+    if (empty($hosting_provider_link)) {
+       $content .= t('Hosted by !hosted_by_name. !hosted_by_more', $t_array);
+    }
+    else { 
+       $content .= t('Hosted by <a href="!hosted_by_link" class="hosted-by-link">!hosted_by_name</a>. !hosted_by_more', $t_array);
+    }
+  }
+
+  $content .= '</span>';
+
+  $block['content'] = $content;
+  return $block;
+}
+
+
