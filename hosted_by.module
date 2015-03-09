@@ -33,7 +33,6 @@ function hosted_by_block_view() {
   $t_array = array(
     '!hosted_by_name' => $hosting_provider_name,
     '!hosted_by_link' => $hosting_provider_link,
-    '!hosted_by_more' => $hosted_by_more,
   );
 
   $content = '<span class="hosted-by">';
